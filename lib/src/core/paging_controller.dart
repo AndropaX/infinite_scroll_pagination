@@ -109,6 +109,17 @@ class PagingController<PageKeyType, ItemType>
     );
   }
 
+  /// Prepends [newItems] to the previously loaded ones
+  void prependPage(List<ItemType> newItems) {
+    final previousItems = value.itemList ?? [];
+    final itemList = newItems + previousItems;
+    value = PagingState<PageKeyType, ItemType>(
+      itemList: itemList,
+      error: null,
+      nextPageKey: nextPageKey,
+    );
+  }
+
   /// Appends [newItems] to the previously loaded ones and sets the next page
   /// key to `null`.
   void appendLastPage(List<ItemType> newItems) => appendPage(newItems, null);

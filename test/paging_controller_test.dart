@@ -93,6 +93,24 @@ void main() {
     });
   });
 
+  group('[prependPage]', () {
+    test('Prepends the new list to the existing [itemList]', () {
+      // given
+      final pagingController = buildPagingControllerWithPopulatedState(
+        PopulatedStateOption.ongoingWithOnePage,
+      );
+
+      // when
+      pagingController.prependPage(secondPageItemList);
+
+      // then
+      expect(pagingController.itemList, [
+        ...secondPageItemList,
+        ...firstPageItemList,
+      ]);
+    });
+  });
+
   test('[retryLastFailedRequest] sets [error] to null', () {
     // given
     final pagingController = buildPagingControllerWithPopulatedState(
